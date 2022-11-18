@@ -24,6 +24,7 @@ df01 %>%
   ggplot(aes(x = fecha, y = valor)) +
     geom_line(alpha = 0.7) +
     geom_smooth(method = "lm", se = FALSE, color = "darkred") +
+    geom_vline(xintercept = as_date("2018-1001")) +
     theme(text = element_text(family = "Encode Sans Condensed"),
           plot.title.position = "plot",
           plot.title = element_text(face = "bold", 
@@ -31,11 +32,12 @@ df01 %>%
           plot.caption.position = "plot",
           plot.caption = element_markdown(color = "darkgrey", 
                                           hjust = 0)) +
-    labs(title = "Desempeño del IGAE México",
-         subtitle = "Base 100 = 2013",
+    labs(title = "Desempeño Histórico de la Economía Mexicana",
+         subtitle = "IGAE Base 100 = 2013",
          x = NULL,
          y = "Índice",
-         caption = "Fuente: Elaboración propia con datos del INEGI <br>
+         caption = "Fuente: INEGI 
+         Indicador Global de la Actividad Económica <br>
              Juan L. Bretón, PMP")
   
 
