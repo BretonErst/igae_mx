@@ -12,9 +12,15 @@ library(lubridate)
 
 
 ## adquisición de datos
-df00 <- readxl::read_xlsx("raw/igae_indice.xlsx",
-                          skip = 5, 
-                          trim_ws = TRUE)
+url <- "https://www.inegi.org.mx/contenidos/temas/economia/cn/igae/tabulados/des/igae_indice.xlsx"
+
+download.file(url, "file.xlsx")
+
+df00 <- readxl::read_xlsx("file.xlsx", skip = 5, trim_ws = TRUE)
+
+# df00 <- readxl::read_xlsx("raw/igae_indice.xlsx",
+#                           skip = 5, 
+#                           trim_ws = TRUE)
 
 glimpse(df00)
 
