@@ -17,14 +17,41 @@ library(ggrepel)
 suppressMessages(source("source/data_clean_ind_00.R"))
 
 
+df01 %>% 
+  filter(fecha < "2018-07-02") %>% 
+  filter(concepto == "Indicador Global de la Actividad Económica") %>% 
+  ggplot(aes(x = fecha, y = valor)) +
+  geom_line() +
+  geom_smooth(method = "lm", se = FALSE, color = "darkred")
+
+# modelo lineal
+mode_lineal <- lm(valor ~ fecha, data = df01 %>% 
+     filter(fecha < "2018-07-02") %>% 
+     filter(concepto == "Indicador Global de la Actividad Económica"))
+
 
 ## visualización de la serie
 df01 %>% 
   filter(concepto == "Indicador Global de la Actividad Económica") %>% 
+  mutate(predi = predict(mode_lineal, newdata = .)) %>% 
   ggplot(aes(x = fecha, y = valor)) +
-    geom_line(alpha = 0.7) +
-    geom_smooth(method = "lm", se = FALSE, color = "darkred") +
-    geom_vline(xintercept = as_date("2018-1001")) +
+    geom_line(alpha = 0.7,
+              color = "steelblue",
+              linewidth = 0.6) +
+    geom_smooth(aes(y = predi), 
+                se = FALSE, 
+                color = "darkred", 
+                linewidth = 0.5) +
+    geom_vline(xintercept = as_date("2018-10-01"),
+               color = "darkgrey") +
+    annotate(geom = "text",
+             label = "Cancelación de AICM",
+             x = as_date("2018-12-31"),
+             y = 75, 
+             angle = 90,
+             size = 3.0, 
+             color = "darkgrey",
+             family = "Encode Sans Condensed") +
     theme(text = element_text(family = "Encode Sans Condensed"),
           plot.title.position = "plot",
           plot.title = element_text(face = "bold", 
@@ -33,13 +60,14 @@ df01 %>%
           plot.caption = element_markdown(color = "darkgrey", 
                                           hjust = 0)) +
     labs(title = "Desempeño Histórico de la Economía Mexicana",
-         subtitle = "IGAE Base 100 = 2013",
+         subtitle = "Indicador Global de la Actividad Económica. La línea roja indica la tendencia de la Economía Mexicana hasta antes de la ultima elección presidencial.",
          x = NULL,
-         y = "Índice",
+         y = "Índice (Base 100 = 2013)",
          caption = "Fuente: INEGI 
-         Indicador Global de la Actividad Económica <br>
+         Indicador Global de la Actividad Económica, series desestacionalizadas <br>
              Juan L. Bretón, PMP")
-  
+
+ggsave("figures/plot02.jpg", plot = last_plot())
 
 
 # función para poner numero de índice
