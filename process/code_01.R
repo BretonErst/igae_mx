@@ -16,7 +16,7 @@ library(ggrepel)
 ## ddquisición de datos
 suppressMessages(source("source/data_clean_ind_00.R"))
 
-# filtrado de datos
+# grafica previa
 df01 %>% 
   filter(fecha < "2018-07-02") %>% 
   filter(concepto == "Indicador Global de la Actividad Económica") %>% 
@@ -49,7 +49,7 @@ df01 %>%
     geom_vline(xintercept = as_date("2018-10-01"),
                color = "darkgrey") +
     annotate(geom = "text",
-             label = "Cancelación de AICM",
+             label = "Cancelación de NAICM",
              x = as_date("2018-12-31"),
              y = 75, 
              angle = 90,
