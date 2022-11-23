@@ -16,13 +16,17 @@ library(ggrepel)
 ## ddquisición de datos
 suppressMessages(source("source/data_clean_ind_00.R"))
 
-
+# filtrado de datos
 df01 %>% 
   filter(fecha < "2018-07-02") %>% 
   filter(concepto == "Indicador Global de la Actividad Económica") %>% 
   ggplot(aes(x = fecha, y = valor)) +
   geom_line() +
   geom_smooth(method = "lm", se = FALSE, color = "darkred")
+
+# ultimo registro
+df01 %>% 
+  slice_max(order_by = fecha, n =1)
 
 # modelo lineal
 mode_lineal <- lm(valor ~ fecha, data = df01 %>% 
@@ -56,18 +60,22 @@ df01 %>%
           plot.title.position = "plot",
           plot.title = element_text(face = "bold", 
                                     size = 16),
+          panel.background = element_rect(fill = "#FFFFFF"),
+          axis.line = element_line(color = "darkgrey"),
+          panel.grid = element_line(color = "grey95"),
           plot.caption.position = "plot",
           plot.caption = element_markdown(color = "darkgrey", 
                                           hjust = 0)) +
     labs(title = "Desempeño Histórico de la Economía Mexicana",
-         subtitle = "Indicador Global de la Actividad Económica. La línea roja indica la tendencia de la Economía Mexicana hasta antes de la ultima elección presidencial.",
+         subtitle = "Indicador Global de la Actividad Económica; la línea roja indica la tendencia de la Economía Mexicana hasta la ultima elección presidencial.",
          x = NULL,
          y = "Índice (Base 100 = 2013)",
-         caption = "Fuente: INEGI 
-         Indicador Global de la Actividad Económica, series desestacionalizadas <br>
-             Juan L. Bretón, PMP")
+         caption = "Fuente: INEGI, 
+         Indicador Global de la Actividad Económica, 
+         series desestacionalizadas. <br>
+         Visualización: Juan L. Bretón, PMP | @BretonPmp")
 
-ggsave("figures/plot02.jpg", plot = last_plot())
+ggsave("figures/plot01.jpg", plot = last_plot())
 
 
 # función para poner numero de índice
@@ -145,7 +153,7 @@ df_global_02 %>%
          y = "Índice: 0 = día 1 de cada sexenio",
          caption = "Fuente: INEGI, 
          Indicador Global de la Actividad Económica, 
-         series desestacionalizadas. Último registro: agosto 2022<br>
+         series desestacionalizadas. Último registro: agosto 2022.<br>
          Visualización: Juan L. Bretón, PMP | @BretonPmp" )
 
-ggsave("figures/plot01.jpg", plot = last_plot())
+ggsave("figures/plot02.jpg", plot = last_plot())
