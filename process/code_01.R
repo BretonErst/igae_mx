@@ -13,7 +13,7 @@ library(ggrepel)
 
 
 
-## ddquisición de datos
+## adquisición de datos
 suppressMessages(source("source/data_clean_ind_00.R"))
 
 # grafica previa
@@ -67,7 +67,7 @@ df01 %>%
           plot.caption = element_markdown(color = "darkgrey", 
                                           hjust = 0)) +
     labs(title = "Desempeño Histórico de la Economía Mexicana",
-         subtitle = "Indicador Global de la Actividad Económica; la línea roja indica la tendencia de la Economía Mexicana hasta la ultima elección presidencial.",
+         subtitle = "Indicador Global de la Actividad Económica; la línea roja indica la tendencia de la Economía Mexicana hasta la última elección presidencial.",
          x = NULL,
          y = "Índice (Base 100 = 2013)",
          caption = "Fuente: INEGI, 
