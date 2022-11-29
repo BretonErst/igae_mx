@@ -153,7 +153,7 @@ df_global_02 %>%
          y = "Índice: 0 = día 1 de cada sexenio",
          caption = "Fuente: INEGI, 
          Indicador Global de la Actividad Económica, 
-         series desestacionalizadas. Último registro: agosto 2022.<br>
+         series desestacionalizadas.<br>
          Visualización: Juan L. Bretón, PMP | @BretonPmp" )
 
 ggsave("figures/plot02.jpg", plot = last_plot())
