@@ -147,7 +147,7 @@ df_global_02 %>%
           plot.caption = element_markdown(color = "darkgrey", 
                                           hjust = 0),
           legend.position = "top") +
-    labs(title = "Desempeño de la Economía en cada Periodo Presidencial",
+    labs(title = "Indicador Anticipado del Desempeño de la Economía en cada Periodo Presidencial",
          subtitle = "IGAE a valores constantes, base 2013",
          x = "Meses del Sexenio",
          y = "Índice: 0 = día 1 de cada sexenio",
