@@ -34,6 +34,16 @@ mode_lineal <- lm(valor ~ fecha, data = df01 %>%
                     filter(concepto == "Indicador Global de la Actividad Económica"))
 
 
+## comparación con la tendencia
+df01 %>% 
+  filter(concepto == "Indicador Global de la Actividad Económica") %>% 
+  mutate(predi = predict(mode_lineal, newdata = .)) %>% 
+  summarize(pct_cambio = (last(.) %>% pull(valor) - last(.) %>% pull(predi)) /
+              last(.) %>% pull(predi)) %>% 
+  knitr::kable(digits = 4, 
+               col.names = "Diferencia respecto a la tendencia")
+
+
 ## visualización de la serie
 df01 %>% 
   filter(concepto == "Indicador Global de la Actividad Económica") %>% 
@@ -84,22 +94,6 @@ df01 %>%
                                    to = max(df01$fecha),
                                    by = "4 year"))
   
-
-actual <- df01 %>% 
-  filter(concepto == "Indicador Global de la Actividad Económica") %>%
-  slice_max(order_by = fecha, n =1) %>% 
-  pull(valor)
-  
-
-trend <- df01 %>% 
-  filter(concepto == "Indicador Global de la Actividad Económica") %>% 
-  mutate(predi = predict(mode_lineal, newdata = .)) %>% 
-  slice_max(order_by = fecha, n =1) %>% 
-  pull(predi)
-
-as_tibble((actual - trend) / trend) %>% 
-  knitr::kable(digits = 4, 
-               col.names = "Diferencia respecto a la tendencia")
 
   
   
