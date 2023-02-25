@@ -157,3 +157,45 @@ df_global_02 %>%
          Visualización: Juan L. Bretón, PMP | @BretonPmp" )
 
 ggsave("figures/plot02.jpg", plot = last_plot())
+
+
+# relación con el máximo histórico de la serie
+df01 %>% 
+  filter(concepto == "Indicador Global de la Actividad Económica") %>% 
+  summarize(cambio_respecto_al_max = (tail(valor, 1) - max(valor)) / max(valor)) %>% 
+  knitr::kable(digits = 6, 
+               col.names = "Cambio respecto al máximo histórico")
+
+
+
+# cambio a 1 año
+año_anterior <- df01 %>% 
+  filter(concepto == "Indicador Global de la Actividad Económica") %>% 
+  filter(fecha == max(fecha) - years(1)) %>% 
+  pull(valor)
+
+año_actual <- df01 %>% 
+  filter(concepto == "Indicador Global de la Actividad Económica") %>% 
+  filter(fecha == max(fecha)) %>% 
+  pull(valor)
+
+as_tibble((año_actual - año_anterior) / año_anterior) %>% 
+  knitr::kable(digits = 6,
+               col.names = "Cambio respecto al año anterior")
+  
+
+# cambio hasta antes de la pandemia de COVID
+año_anterior <- df01 %>% 
+  filter(concepto == "Indicador Global de la Actividad Económica") %>% 
+  filter(fecha == as_date("2020-02-01")) %>% 
+  pull(valor)
+
+año_actual <- df01 %>% 
+  filter(concepto == "Indicador Global de la Actividad Económica") %>% 
+  filter(fecha == max(fecha)) %>% 
+  pull(valor)
+
+(año_actual - año_anterior) / año_anterior 
+  
+  
+  
