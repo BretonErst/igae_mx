@@ -195,7 +195,9 @@ año_actual <- df01 %>%
   filter(fecha == max(fecha)) %>% 
   pull(valor)
 
-(año_actual - año_anterior) / año_anterior 
+as_tibble((año_actual - año_anterior) / año_anterior) %>% 
+  knitr::kable(digits = 6,
+               col.names = "Cambio respecto a antes de COVID")
   
   
   
