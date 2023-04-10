@@ -46,10 +46,10 @@ df01 %>%
                 se = FALSE, 
                 color = "darkred", 
                 linewidth = 0.5) +
-    geom_vline(xintercept = as_date("2018-10-01"),
+    geom_vline(xintercept = as_date("2018-07-02"),
                color = "darkgrey") +
     annotate(geom = "text",
-             label = "Cancelación de NAICM",
+             label = "Elección presidencial",
              x = as_date("2018-12-31"),
              y = 75, 
              angle = 90,
