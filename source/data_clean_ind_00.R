@@ -59,7 +59,8 @@ df01 <- df00 %>%
   mutate(nuevo = map(data, asigna_fecha)) %>% 
   select(-data) %>% 
   unnest(nuevo) %>% 
-  relocate(fecha, .before = valor)
+  mutate(fecha_final = fecha + months(1) - days(1)) %>% 
+  select(concepto, num_mes, mes, fecha, fecha_final, valor)
 
 
 file.remove("file.xlsx")
