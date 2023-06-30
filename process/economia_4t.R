@@ -88,7 +88,7 @@ df01 %>%
          caption = "Fuente: INEGI, 
            Indicador Global de la Actividad Económica, 
            series desestacionalizadas. <br>
-           Visualización: Juan L. Bretón, PMP | @BretonPmp") +
+           Visualización: Juan L. Bretón, PMP | @juanlbreton") +
     scale_x_date(date_labels = "%Y",
                  breaks = seq.Date(from = min(df01$fecha),
                                    to = max(df01$fecha),
