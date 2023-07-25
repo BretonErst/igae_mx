@@ -193,6 +193,22 @@ as_tibble((año_actual - año_anterior) / año_anterior) %>%
                col.names = "Cambio respecto al año anterior")
 
 
+# cambio a 1 mes
+mes_anterior <- df01 %>% 
+  filter(concepto == "Indicador Global de la Actividad Económica") %>% 
+  filter(fecha == max(fecha) - months(1)) %>% 
+  pull(valor)
+
+mes_actual <- df01 %>% 
+  filter(concepto == "Indicador Global de la Actividad Económica") %>% 
+  filter(fecha == max(fecha)) %>% 
+  pull(valor)
+
+as_tibble((mes_actual - mes_anterior) / mes_anterior) %>% 
+  knitr::kable(digits = 6,
+               col.names = "Cambio respecto al mes anterior")
+
+
 # cambio hasta antes de la pandemia de COVID
 año_anterior <- df01 %>% 
   filter(concepto == "Indicador Global de la Actividad Económica") %>% 
