@@ -103,7 +103,7 @@ año_actual <- df01 %>%
 
 as_tibble((año_actual - año_anterior) / año_anterior) %>% 
   knitr::kable(digits = 6,
-               col.names = "IGAE Cambio respecto al año anterior")
+               col.names = "IGAE Cambio respecto a 12 meses anteriores")
 
 
 # cambio a 1 mes
@@ -136,7 +136,7 @@ año_actual <- df01 %>%
 
 as_tibble((año_actual - año_anterior) / año_anterior) %>% 
   knitr::kable(digits = 6,
-               col.names = "PRIMARIAS Cambio respecto al año anterior")
+               col.names = "PRIMARIAS Cambio respecto a 12 meses anteriores")
 
 
 # cambio a 1 mes
@@ -169,7 +169,7 @@ año_actual <- df01 %>%
 
 as_tibble((año_actual - año_anterior) / año_anterior) %>% 
   knitr::kable(digits = 6,
-               col.names = "SECUNDARIAS Cambio respecto al año anterior")
+               col.names = "SECUNDARIAS Cambio respecto a 12 meses anteriores")
 
 
 # cambio a 1 mes
@@ -202,7 +202,7 @@ año_actual <- df01 %>%
 
 as_tibble((año_actual - año_anterior) / año_anterior) %>% 
   knitr::kable(digits = 6,
-               col.names = "TERCIARIAS Cambio respecto al año anterior")
+               col.names = "TERCIARIAS Cambio respecto a 12 meses anteriores")
 
 
 # cambio a 1 mes
