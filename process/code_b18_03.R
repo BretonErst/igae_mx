@@ -77,7 +77,7 @@ df_global_02 %>%
                                 "#8E44AD", "#C0392B")) +
   theme_breton() +
   labs(title = "Indicador Anticipado del Desempeño de la Economía en cada Periodo Presidencial",
-       subtitle = "IGAE a valores constantes, base 2013",
+       subtitle = "IGAE a valores constantes, base 2018",
        x = "Meses del Sexenio",
        y = "Índice: 0 = Primer mes de cada sexenio",
        caption = "Fuente: INEGI, 
