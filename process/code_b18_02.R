@@ -63,3 +63,17 @@ df01 %>%
 
 ggsave("figures/plot01.jpg", plot = last_plot(), device = "jpeg", dpi = "retina")
 
+
+
+
+df01 |> 
+  filter(concepto == "Indicador Global de la Actividad Económica") |> 
+  predict(model_lineal, newdata = _) |> 
+  bind_cols(
+    df01 |>
+      filter(concepto == "Indicador Global de la Actividad Económica")) |> 
+  slice_max(order_by = ...1) |> 
+  select(...1, valor) |> 
+  reframe(brecha = (valor - ...1) / valor)
+
+
