@@ -74,7 +74,7 @@ df_global_02 %>%
   scale_x_continuous(limits = c(0, 75)) +
   scale_color_manual(name = "Presidente",
                      values = c("#34495E", "#F39C12", "#16A085", 
-                                "#8E44AD", "#C0392B")) +
+                                "#8E44AD", "#9F0D08")) +
   theme_breton() +
   theme(legend.position = "top") +
   labs(title = "Indicador Anticipado del Desempeño de la Economía en cada Periodo Presidencial",
