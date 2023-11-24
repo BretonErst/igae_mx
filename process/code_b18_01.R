@@ -15,6 +15,7 @@ library(ggrepel)
 ## adquisición de datos
 suppressMessages(source("source/data_clean_b18_00.R"))
 
+
 # preparación
 secuen <- function(base){
   seq_along(along.with = base$valor)
