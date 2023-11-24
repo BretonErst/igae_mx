@@ -78,7 +78,7 @@ df_global_02 %>%
   theme_breton() +
   theme(legend.position = "top") +
   labs(title = "Indicador Anticipado del Desempeño de la Economía en cada Periodo Presidencial",
-       subtitle = "IGAE a valores constantes, base 2018",
+       subtitle = "IGAE a valores constantes, base 2018.",
        x = "Meses del Sexenio",
        y = "Índice: 0 = Primer mes de cada sexenio",
        caption = "Fuente: INEGI, 
@@ -92,3 +92,20 @@ df_global_02 %>%
 
 ggsave("figures/plot02.jpg", plot = last_plot(), device = "jpeg", dpi = "retina")
 
+
+# ???
+inicio_lopez <- 
+  df_global_02 |> 
+  filter(presidente == "López") |> 
+  head(n = 1) |> 
+  pull(valor)
+
+
+ultimo_lopez <- 
+  df_global_02 |> 
+  filter(presidente == "López") |> 
+  tail(n = 1) |> 
+  pull(valor)
+
+(ultimo_lopez - inicio_lopez) / inicio_lopez
+  
