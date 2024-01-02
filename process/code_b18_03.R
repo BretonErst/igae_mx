@@ -71,7 +71,6 @@ df_global_02 %>%
   #                 segment.alpha = 0.5,
   #                 nudge_y = -0.01,
   #                 segment.linetype = "dotted") +
-  scale_x_continuous(limits = c(0, 75)) +
   scale_color_manual(name = "Presidente",
                      values = c("#34495E", "#F39C12", "#16A085", 
                                 "#8E44AD", "#9F0D08")) +
