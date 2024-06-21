@@ -16,12 +16,13 @@ library(ggrepel)
 suppressMessages(source("source/data_clean_b18_00.R"))
 
 
-# preparación
+## preparación de secuencia
 secuen <- function(base){
   seq_along(along.with = base$valor)
 }
 
 
+# implementación de secuencia
 df02 <- 
   df01 |> 
   mutate(id_mes = str_c(mes, 
@@ -32,7 +33,7 @@ df02 <-
   unnest(cols = everything())
 
 
-# visualización
+# visualización de 4 series
 df02 |> 
   ggplot() +
   geom_line(data = df02 |> 
@@ -87,6 +88,7 @@ df02 |>
                             length.out = 10),
                date_labels = "%Y_%m")
 
+# guarda imagen
 ggsave(filename = "figures/compo_01.jpg", device = "jpeg", dpi = "retina")
 
 

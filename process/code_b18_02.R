@@ -25,7 +25,7 @@ model_lineal <-
        filter(concepto == "Indicador Global de la Actividad Económica"))
 
 
-## visualización de la serie
+## visualización de la serie con tendencia
 df01 %>% 
   filter(concepto == "Indicador Global de la Actividad Económica") %>% 
   mutate(predi = predict(model_lineal, newdata = .)) %>% 
@@ -61,11 +61,12 @@ df01 %>%
                              length.out = 6),
                date_labels = "%Y-%m")
 
+# guarda imagen
 ggsave("figures/plot01.jpg", plot = last_plot(), device = "jpeg", dpi = "retina")
 
 
 
-
+# tamaño de la brecha
 df01 |> 
   filter(concepto == "Indicador Global de la Actividad Económica") |> 
   predict(model_lineal, newdata = _) |> 
