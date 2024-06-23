@@ -25,7 +25,7 @@ model_lineal <-
        filter(concepto == "Indicador Global de la Actividad Económica"))
 
 
-## visualización de la serie con tendencia
+## visualización de la serie con tendencia 
 df01 %>% 
   filter(concepto == "Indicador Global de la Actividad Económica") %>% 
   mutate(predi = predict(model_lineal, newdata = .)) %>% 
@@ -55,7 +55,7 @@ df01 %>%
        caption = "Fuente: INEGI, 
            Indicador Global de la Actividad Económica, 
            series desestacionalizadas. <br>
-           Visualización: Juan L. Bretón, PMP | @juanlbreton") +
+           Modelado y visualización: Juan L. Bretón, PMP | @juanlbreton") +
   scale_x_date(breaks  = seq(min(df01$fecha_final), 
                              max(df01$fecha_final), 
                              length.out = 6),
