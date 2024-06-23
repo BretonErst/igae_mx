@@ -11,7 +11,6 @@ library(styleBreton)
 library(ggrepel)
 
 
-
 ## adquisición de datos
 suppressMessages(source("source/data_clean_b18_00.R"))
 
@@ -31,6 +30,20 @@ df02 <-
   nest(.by = concepto) |> 
   mutate(sec = map(data, secuen)) |> 
   unnest(cols = everything())
+
+
+# extracción de último mes de la serie
+ulti_fecha <- 
+  df02 |> 
+  filter(concepto == "Indicador Global de la Actividad Económica" & 
+           fecha_final == max(fecha_final)) |> 
+  pull(fecha_final)
+  
+
+text_cap <-  
+  paste0("hasta ", 
+        format(ulti_fecha, "%b %Y"),
+        ".")
 
 
 # visualización de 4 series
@@ -70,14 +83,14 @@ df02 |>
                                 "Act. Secundarias", "Act. Terciarias"),
                      values = c("#B22203", "#06B304", 
                                 "#00238D", "#9003C2")) +
-  labs(title = "Desemepeño Histórico del IGAE y sus Componentes",
-       subtitle = "Componentes del IGAE",
+  labs(title = "Desemepeño Histórico de las Series del IGAE",
+       subtitle = paste("Indicadores de actividad económica Global, Primaria, Secundaria y Terciaria", text_cap),
        y = "Índice a valores constantes (base 2018)",
        x = "Mes",
-       caption = "Fuente: INEGI: 
+       caption = paste("Fuente: INEGI: 
          Indicador Global de la Actividad Económica, base 2018, 
          series desestacionalizadas.<br>
-         Visualización: Juan L. Bretón, PMP | @juanlbreton") +
+         Modeladoe y visualización: Juan L. Bretón, PMP | @juanlbreton")) +
   theme_breton() +
   theme(legend.position = "top",
         axis.text.x = element_text(size = rel(0.85)),
