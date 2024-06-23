@@ -17,6 +17,7 @@ suppressMessages(source("source/data_clean_b18_00.R"))
 
 
 
+
 # función para poner numero de índice
 pon_num <- function(base) {
   seq_along(along.with = base$num_mes)
@@ -30,6 +31,20 @@ calc_escala <- function(base) {
   
   (base$valor - fac) / fac
 }
+
+
+# extracción de último mes de la serie
+ultim_fecha <- 
+  df01 |> 
+  filter(concepto == "Indicador Global de la Actividad Económica" & 
+           fecha_final == max(fecha_final)) |> 
+  pull(fecha_final)
+
+text_fecha <-  
+  paste0("hasta ", 
+         format(ultim_fecha, "%b %Y"),
+         ".")
+
 
 
 # integrar presidente con base en fecha
@@ -77,13 +92,13 @@ df_global_02 %>%
   theme_breton() +
   theme(legend.position = "top") +
   labs(title = "Indicador Anticipado del Desempeño de la Economía en cada Periodo Presidencial",
-       subtitle = "IGAE.",
+       subtitle = paste("Índice escalado hasta", text_fecha),
        x = "Meses del Sexenio",
        y = "Índice: 0 = Primer mes de cada sexenio",
        caption = "Fuente: INEGI, 
          Indicador Global de la Actividad Económica, 
          series desestacionalizadas. Valores constantes, base 2018.<br>
-         Visualización: Juan L. Bretón, PMP | @juanlbreton" ) +
+         Modelado y visualización: Juan L. Bretón, PMP | @juanlbreton" ) +
   scale_x_continuous(breaks = round(seq(min(df_global_02$mes_sexenio),
                                         max(df_global_02$mes_sexenio),
                                         length.out = 10),
