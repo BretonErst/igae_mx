@@ -8,7 +8,7 @@
 ## libraries
 library(tidyverse)
 library(styleBreton)
-library(ggrepel)
+library(gt)
 
 
 ## adquisición de datos
@@ -140,98 +140,126 @@ as_tibble((mes_actual - mes_anterior) / mes_anterior) %>%
 
 ## cálculo de tasas de cambio PRIMARIAS
 # cambio a 1 año
-año_anterior <- df01 %>% 
+prim_año_ant <- df01 %>% 
   filter(concepto == "Actividades primarias") %>% 
   filter(fecha == max(fecha) - years(1)) %>% 
   pull(valor)
 
-año_actual <- df01 %>% 
+prim_año_act <- df01 %>% 
   filter(concepto == "Actividades primarias") %>% 
   filter(fecha == max(fecha)) %>% 
   pull(valor)
 
-as_tibble((año_actual - año_anterior) / año_anterior) %>% 
+as_tibble((prim_año_act - prim_año_ant) / prim_año_ant) %>% 
   knitr::kable(digits = 6,
                col.names = "PRIMARIAS Cambio respecto a 12 meses anteriores")
 
 
 # cambio a 1 mes
-mes_anterior <- df01 %>% 
+prim_mes_ant <- df01 %>% 
   filter(concepto == "Actividades primarias") %>% 
   filter(fecha == max(fecha) - months(1)) %>% 
   pull(valor)
 
-mes_actual <- df01 %>% 
+prim_mes_act <- df01 %>% 
   filter(concepto == "Actividades primarias") %>% 
   filter(fecha == max(fecha)) %>% 
   pull(valor)
 
-as_tibble((mes_actual - mes_anterior) / mes_anterior) %>% 
+as_tibble((prim_mes_act - prim_mes_ant) / prim_mes_ant) %>% 
   knitr::kable(digits = 6,
                col.names = "PRIMARIAS Cambio respecto al mes anterior")
 
 
 ## cálculo de tasas de cambio SECUNDARIAS
 # cambio a 1 año
-año_anterior <- df01 %>% 
+secu_año_ant <- df01 %>% 
   filter(concepto == "Actividades secundarias") %>% 
   filter(fecha == max(fecha) - years(1)) %>% 
   pull(valor)
 
-año_actual <- df01 %>% 
+secu_año_act <- df01 %>% 
   filter(concepto == "Actividades secundarias") %>% 
   filter(fecha == max(fecha)) %>% 
   pull(valor)
 
-as_tibble((año_actual - año_anterior) / año_anterior) %>% 
+as_tibble((secu_año_act - secu_año_ant) / secu_año_ant) %>% 
   knitr::kable(digits = 6,
                col.names = "SECUNDARIAS Cambio respecto a 12 meses anteriores")
 
 
 # cambio a 1 mes
-mes_anterior <- df01 %>% 
+secu_mes_ant <- df01 %>% 
   filter(concepto == "Actividades secundarias") %>% 
   filter(fecha == max(fecha) - months(1)) %>% 
   pull(valor)
 
-mes_actual <- df01 %>% 
+secu_mes_act <- df01 %>% 
   filter(concepto == "Actividades secundarias") %>% 
   filter(fecha == max(fecha)) %>% 
   pull(valor)
 
-as_tibble((mes_actual - mes_anterior) / mes_anterior) %>% 
+as_tibble((secu_mes_act - secu_mes_ant) / secu_mes_ant) %>% 
   knitr::kable(digits = 6,
                col.names = "SECUNDARIAS Cambio respecto al mes anterior")
 
 
 ## cálculo de tasas de cambio TERCIARIAS
 # cambio a 1 año
-año_anterior <- df01 %>% 
+terc_año_ant <- df01 %>% 
   filter(concepto == "Actividades terciarias") %>% 
   filter(fecha == max(fecha) - years(1)) %>% 
   pull(valor)
 
-año_actual <- df01 %>% 
+terc_año_act <- df01 %>% 
   filter(concepto == "Actividades terciarias") %>% 
   filter(fecha == max(fecha)) %>% 
   pull(valor)
 
-as_tibble((año_actual - año_anterior) / año_anterior) %>% 
+as_tibble((terc_año_act - terc_año_ant) / terc_año_ant) %>% 
   knitr::kable(digits = 6,
                col.names = "TERCIARIAS Cambio respecto a 12 meses anteriores")
 
 
 # cambio a 1 mes
-mes_anterior <- df01 %>% 
+terc_mes_ant <- df01 %>% 
   filter(concepto == "Actividades terciarias") %>% 
   filter(fecha == max(fecha) - months(1)) %>% 
   pull(valor)
 
-mes_actual <- df01 %>% 
+terc_mes_act <- df01 %>% 
   filter(concepto == "Actividades terciarias") %>% 
   filter(fecha == max(fecha)) %>% 
   pull(valor)
 
-as_tibble((mes_actual - mes_anterior) / mes_anterior) %>% 
+as_tibble((terc_mes_act - terc_mes_ant) / terc_mes_ant) %>% 
   knitr::kable(digits = 6,
                col.names = "TERCIARIAS Cambio respecto al mes anterior")
+
+
+# tabla
+tbl_varia <- 
+  tibble(
+  indicador = c("Primarias", "Secundarias", "Terciarias"),
+  año_ant = c((prim_año_act - prim_año_ant) / prim_año_ant,
+              (secu_año_act - secu_año_ant) / secu_año_ant,
+              (terc_año_act - terc_año_ant) / terc_año_ant),
+  mes_ant = c((prim_mes_act - prim_mes_ant) / prim_mes_ant,
+              (secu_mes_act - secu_mes_ant) / secu_mes_ant,
+              (terc_mes_act - terc_mes_ant) / terc_mes_ant)
+)
+
+tbl_varia |> 
+  gt() |> 
+  tab_header(title = "Variación Periódica de Componentes del IGAE") |> 
+  fmt_percent(columns = c(año_ant, mes_ant), decimals = 4) |> 
+  cols_label(indicador ~ "Componente",
+             año_ant ~ "12 meses anteriores",
+             mes_ant ~ "Mes anterior") |> 
+  opt_align_table_header(align = "left") |> 
+  tab_spanner(columns = c(año_ant, mes_ant), 
+              label = "Periodo")
+  
+  
+
+
